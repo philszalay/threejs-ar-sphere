@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
     {
       filename: 'bundle.[contenthash].js',
       path: path.resolve(__dirname, '../dist'),
-      publicPath: (argv.mode === 'production' && env.github === 'true') ? '/threejs-boilerplate/' : '/'
+      publicPath: (argv.mode === 'production' && env.github === 'true') ? '/threejs-ar-example/' : '/'
     },
     plugins:
       [
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
 
           // Images
           {
-            test: /\.(jpg|png|gif|svg|gltf|bin|ico|hdr)$/,
+            test: /\.(jpg|png|gif|svg|gltf|bin|ico)$/,
             use:
               [
                 {
