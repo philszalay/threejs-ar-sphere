@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
     {
       filename: 'bundle.[contenthash].js',
       path: path.resolve(__dirname, '../dist'),
-      publicPath: (argv.mode === 'production' && env.github === 'true') ? '/threejs-ar-example/' : '/'
+      publicPath: (argv.mode === 'production' && env.github === 'true') ? '/threejs-ar-sphere/' : '/'
     },
     plugins:
       [

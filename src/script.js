@@ -1,6 +1,5 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { ARButton } from 'three/examples/jsm/webxr/ARButton'
 
@@ -42,13 +41,8 @@ export default class ThreeJsDraft {
     this.renderer.setSize(this.width, this.height)
     this.renderer.setPixelRatio(Math.min(this.devicePixelRatio, 2))
     this.renderer.xr.enabled = true;
-    document.body.appendChild(ARButton.createButton(this.renderer));
+    document.body.appendChild(ARButton.createButton(this.renderer, { requiredFeatures: ["hit-test"] },));
     this.renderer.setAnimationLoop(this.animate.bind(this));
-
-    /**
-     * Controls
-     */
-    this.orbitControls = new OrbitControls(this.camera, this.canvas)
 
     /**
      * Resize
@@ -258,19 +252,17 @@ export default class ThreeJsDraft {
 
     this.sphere = new THREE.Mesh(this.innerSphereGeometry, this.innerSphereMaterial);
 
-    this.sphere.position.set(0,0,-10)
+    this.sphere.position.set(0, 0, -20)
 
     this.scene.add(this.sphere);
   }
 
   animate() {
-    this.orbitControls.update()
+    const elapsedTime = this.clock.getElapsedTime()
+
     this.stats.update()
-
-    var delta = this.clock.getDelta();
-    if (this.mixer) this.mixer.update(delta);
-
-    this.innerSphereMaterial.uniforms['u_time'].value = this.clock.getElapsedTime();
+    this.sphere.position.y = Math.sin(elapsedTime)
+    this.innerSphereMaterial.uniforms['u_time'].value = elapsedTime;
     this.renderer.render(this.scene, this.camera)
   }
 }
